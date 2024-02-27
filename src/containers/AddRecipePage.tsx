@@ -34,6 +34,7 @@ const AddRecipePage = () => {
     watch,
     setValue,
     formState: { errors },
+    reset,
   } = useForm<TRecipeForm>({
     defaultValues,
   });
@@ -50,6 +51,7 @@ const AddRecipePage = () => {
 
   const onSubmit: SubmitHandler<TRecipeForm> = (data) => {
     console.log(data);
+    reset();
   };
 
   return (

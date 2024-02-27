@@ -1,7 +1,7 @@
 import { useFieldArray } from "react-hook-form";
 import type { TFormProps, TRecipeForm } from "./FormTypes/FormPropType";
-import { ErrorMessage } from "@hookform/error-message";
 import FieldArrayButtons from "./FieldArrayButtons";
+import IngredientsField from "./Fields/IngredientsField";
 
 const IngredientsForm = ({ control, register, errors }: TFormProps) => {
   const { fields, append, remove } = useFieldArray<TRecipeForm>({
@@ -33,29 +33,5 @@ const IngredientsForm = ({ control, register, errors }: TFormProps) => {
     </>
   );
 };
-
-interface IngredientsFieldProps extends TFormProps {
-  index: number;
-}
-
-const IngredientsField = ({
-  index,
-  register,
-  errors,
-}: IngredientsFieldProps) => (
-  <div className="w-full">
-    <label className="flex">
-      &#8226;
-      <input
-        type="text"
-        {...register(`ingredients.${index}.ingredient` as const, {
-          required: true,
-        })}
-        className="border-underline ml-2 w-full border-b-2"
-      />
-    </label>
-    <ErrorMessage name={`ingredients.${index}.ingredient`} errors={errors} />
-  </div>
-);
 
 export default IngredientsForm;

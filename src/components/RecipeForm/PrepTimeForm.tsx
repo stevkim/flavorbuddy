@@ -1,5 +1,5 @@
 import type { TFormProps } from "./FormTypes/FormPropType";
-import { ErrorMessage } from "@hookform/error-message";
+import PrepTimeField from "./Fields/PrepTimeField";
 
 interface PrepProps extends TFormProps {
   total: number;
@@ -16,9 +16,9 @@ const PrepTimeForm = ({ register, total, errors }: PrepProps) => {
           return (
             <PrepTimeField
               key={type}
+              type={type}
               register={register}
               errors={errors}
-              type={type}
             />
           );
         })}
@@ -29,28 +29,5 @@ const PrepTimeForm = ({ register, total, errors }: PrepProps) => {
     </div>
   );
 };
-
-interface PrepTimeFieldProps extends TFormProps {
-  type: string;
-}
-
-const PrepTimeField = ({ type, register, errors }: PrepTimeFieldProps) => (
-  <li>
-    <label>
-      <span className="font-semibold">{type}:</span>
-      <input
-        type="number"
-        {...register(`prepTime.${type.toLowerCase()}`, {
-          required: `${type} time is required`,
-        })}
-        className="border-underline ml-2 w-[3rem] border-b-2 text-right"
-        step={5}
-        min={0}
-      />
-      minutes
-    </label>
-    <ErrorMessage name={`prepTime.${type.toLowerCase()}`} errors={errors} />
-  </li>
-);
 
 export default PrepTimeForm;

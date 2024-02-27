@@ -1,7 +1,7 @@
 import { useFieldArray } from "react-hook-form";
 import type { TFormProps, TRecipeForm } from "./FormTypes/FormPropType";
-import { ErrorMessage } from "@hookform/error-message";
 import FieldArrayButtons from "./FieldArrayButtons";
+import InstructionField from "./Fields/InstructionField";
 
 const InstructionsForm = ({ control, register, errors }: TFormProps) => {
   const { fields, append, remove } = useFieldArray<TRecipeForm>({
@@ -33,29 +33,5 @@ const InstructionsForm = ({ control, register, errors }: TFormProps) => {
     </>
   );
 };
-
-interface InstructionFieldProps extends TFormProps {
-  index: number;
-}
-
-const InstructionField = ({
-  index,
-  register,
-  errors,
-}: InstructionFieldProps) => (
-  <div className="w-full">
-    <label className="flex">
-      {`${index + 1}.`}
-      <input
-        type="text"
-        {...register(`instructions.${index}.instruction` as const, {
-          required: true,
-        })}
-        className="border-underline ml-2 w-full border-b-2"
-      />
-    </label>
-    <ErrorMessage name={`instructions.${index}.instruction`} errors={errors} />
-  </div>
-);
 
 export default InstructionsForm;
