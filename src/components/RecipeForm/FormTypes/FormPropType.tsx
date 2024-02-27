@@ -4,9 +4,8 @@ export type TRecipeForm = {
   name: string;
   description: string;
   prepTime: {
+    [type: string]: number;
     total: number;
-    prep: number;
-    cook: number;
   };
   ingredients: { ingredient: string }[];
   instructions: { instruction: string }[];

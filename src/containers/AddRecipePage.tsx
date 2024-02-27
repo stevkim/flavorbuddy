@@ -4,7 +4,7 @@ import PrepTimeForm from "../components/RecipeForm/PrepTimeForm";
 import IngredientsForm from "../components/RecipeForm/IngredientsForm";
 import NutritionForm from "../components/RecipeForm/NutritionForm";
 import { useForm, SubmitHandler } from "react-hook-form";
-import type { TRecipeForm } from "../components/RecipeForm/FormPropType";
+import type { TRecipeForm } from "../components/RecipeForm/FormTypes/FormPropType";
 import { calculatekcal } from "../lib/calculatekcal";
 import { useEffect } from "react";
 
@@ -12,8 +12,8 @@ const defaultValues = {
   name: "",
   description: "",
   prepTime: {
-    prep: 5,
-    cook: 5,
+    preparation: 5,
+    cooking: 5,
     total: 10,
   },
   ingredients: [{ ingredient: "" }],
@@ -37,12 +37,12 @@ const AddRecipePage = () => {
   } = useForm<TRecipeForm>({
     defaultValues,
   });
-  const { prep, cook, total } = watch("prepTime");
+  const { preparation, cooking, total } = watch("prepTime");
   const { carbs, protein, fat, calories } = watch("nutrition");
 
   useEffect(() => {
-    setValue("prepTime.total", +prep + +cook);
-  }, [prep, setValue, cook, total]);
+    setValue("prepTime.total", +preparation + +cooking);
+  }, [preparation, setValue, cooking, total]);
 
   useEffect(() => {
     setValue("nutrition.calories", calculatekcal(carbs, protein, fat));

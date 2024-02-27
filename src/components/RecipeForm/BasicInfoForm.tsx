@@ -1,4 +1,4 @@
-import type { TFormProps } from "./FormPropType";
+import type { TFormProps } from "./FormTypes/FormPropType";
 import { ErrorMessage } from "@hookform/error-message";
 
 const BasicInfoForm = ({ register, errors }: TFormProps) => {
