@@ -14,8 +14,7 @@ const PrepTimeForm = ({ register, total }: PrepProps) => {
             <span className="font-semibold">Preparation:</span>
             <input
               type="number"
-              {...(register("prepTime.prep"),
-              {
+              {...register("prepTime.prep", {
                 required: true,
               })}
               className="border-underline ml-2 w-[3rem] border-b-2 text-right"
@@ -30,8 +29,7 @@ const PrepTimeForm = ({ register, total }: PrepProps) => {
             <span className="font-semibold">Cooking:</span>
             <input
               type="number"
-              {...(register("prepTime.cook"),
-              {
+              {...register("prepTime.cook", {
                 required: true,
               })}
               className="border-underline ml-2 w-[3rem] border-b-2 text-right"

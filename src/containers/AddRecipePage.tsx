@@ -5,6 +5,7 @@ import IngredientsForm from "../components/RecipeForm/IngredientsForm";
 import NutritionForm from "../components/RecipeForm/NutritionForm";
 import { useForm, SubmitHandler } from "react-hook-form";
 import type { TRecipeForm } from "../components/RecipeForm/FormPropType";
+import { calculatekcal } from "../lib/calculatekcal";
 import { useEffect } from "react";
 
 const defaultValues = {
@@ -26,31 +27,49 @@ const defaultValues = {
 };
 
 const AddRecipePage = () => {
-  const { register, handleSubmit, control, watch, setValue } =
-    useForm<TRecipeForm>({
-      defaultValues,
-    });
-  const onSubmit: SubmitHandler<TRecipeForm> = (data) => {
-    console.log(data);
-  };
-  const [prep, cook] = watch(["prepTime.prep", "prepTime.cook"]);
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<TRecipeForm>({
+    defaultValues,
+  });
+  const { prep, cook, total } = watch("prepTime");
+  const { carbs, protein, fat, calories } = watch("nutrition");
 
   useEffect(() => {
     setValue("prepTime.total", +prep + +cook);
-  }, [prep, setValue, cook]);
+  }, [prep, setValue, cook, total]);
+
+  useEffect(() => {
+    setValue("nutrition.calories", calculatekcal(carbs, protein, fat));
+  }, [carbs, protein, fat, setValue]);
+
+  const onSubmit: SubmitHandler<TRecipeForm> = (data) => {
+    console.log(data);
+  };
 
   return (
     <form className="page" onSubmit={handleSubmit(onSubmit)}>
       Add Recipe Page
-      <BasicInfoForm control={control} register={register} />
+      <BasicInfoForm control={control} register={register} errors={errors} />
       <PrepTimeForm
         control={control}
         register={register}
-        total={watch("prepTime.total")}
+        total={total}
+        errors={errors}
       />
-      <IngredientsForm control={control} register={register} />
-      <InstructionsForm control={control} register={register} />
-      <NutritionForm control={control} register={register} />
+      <IngredientsForm control={control} register={register} errors={errors} />
+      <InstructionsForm control={control} register={register} errors={errors} />
+      <NutritionForm
+        kcal={calories}
+        control={control}
+        register={register}
+        errors={errors}
+      />
       <button type="submit">Submit</button>
     </form>
   );
