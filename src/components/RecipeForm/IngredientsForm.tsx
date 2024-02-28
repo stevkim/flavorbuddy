@@ -3,7 +3,7 @@ import type { TFormProps, TRecipeForm } from "./FormTypes/FormPropType";
 import FieldArrayButtons from "./FieldArrayButtons";
 import IngredientsField from "./Fields/IngredientsField";
 
-const IngredientsForm = ({ control, register, errors }: TFormProps) => {
+const IngredientsForm = ({ control }: TFormProps) => {
   const { fields, append, remove } = useFieldArray<TRecipeForm>({
     control,
     name: "ingredients",
@@ -20,14 +20,7 @@ const IngredientsForm = ({ control, register, errors }: TFormProps) => {
       </div>
       <div className="flex w-full flex-col gap-2">
         {fields.map((field, index) => {
-          return (
-            <IngredientsField
-              key={field.id}
-              index={index}
-              register={register}
-              errors={errors}
-            />
-          );
+          return <IngredientsField key={field.id} index={index} />;
         })}
       </div>
     </>

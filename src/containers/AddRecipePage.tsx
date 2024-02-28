@@ -3,7 +3,8 @@ import BasicInfoForm from "../components/RecipeForm/BasicInfoForm";
 import PrepTimeForm from "../components/RecipeForm/PrepTimeForm";
 import IngredientsForm from "../components/RecipeForm/IngredientsForm";
 import NutritionForm from "../components/RecipeForm/NutritionForm";
-import { useForm, SubmitHandler } from "react-hook-form";
+import RecipeImageForm from "../components/RecipeForm/RecipeImageForm";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import type { TRecipeForm } from "../components/RecipeForm/FormTypes/FormPropType";
 import { calculatekcal } from "../lib/calculatekcal";
 import { useEffect } from "react";
@@ -11,6 +12,7 @@ import { useEffect } from "react";
 const defaultValues = {
   name: "",
   description: "",
+  image: null,
   prepTime: {
     preparation: 5,
     cooking: 5,
@@ -27,24 +29,21 @@ const defaultValues = {
 };
 
 const AddRecipePage = () => {
-  const {
-    register,
-    handleSubmit,
-    control,
-    watch,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm<TRecipeForm>({
+  const methods = useForm<TRecipeForm>({
     defaultValues,
   });
+  const { handleSubmit, watch, setValue, reset, control } = methods;
+
+  // watching updates to automatically update and pass for display
   const { preparation, cooking, total } = watch("prepTime");
   const { carbs, protein, fat, calories } = watch("nutrition");
 
+  // auto updates total prep time
   useEffect(() => {
     setValue("prepTime.total", +preparation + +cooking);
   }, [preparation, setValue, cooking, total]);
 
+  // auto updates calories
   useEffect(() => {
     setValue("nutrition.calories", calculatekcal(carbs, protein, fat));
   }, [carbs, protein, fat, setValue]);
@@ -55,25 +54,18 @@ const AddRecipePage = () => {
   };
 
   return (
-    <form className="page" onSubmit={handleSubmit(onSubmit)}>
-      Add Recipe Page
-      <BasicInfoForm control={control} register={register} errors={errors} />
-      <PrepTimeForm
-        control={control}
-        register={register}
-        total={total}
-        errors={errors}
-      />
-      <IngredientsForm control={control} register={register} errors={errors} />
-      <InstructionsForm control={control} register={register} errors={errors} />
-      <NutritionForm
-        kcal={calories}
-        control={control}
-        register={register}
-        errors={errors}
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <FormProvider {...methods}>
+      <form className="page" onSubmit={handleSubmit(onSubmit)}>
+        Add Recipe Page
+        <BasicInfoForm />
+        <RecipeImageForm />
+        <PrepTimeForm total={total} />
+        <IngredientsForm control={control} />
+        <InstructionsForm control={control} />
+        <NutritionForm kcal={calories} />
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
   );
 };
 

@@ -1,27 +1,19 @@
-import type { TFormProps } from "./FormTypes/FormPropType";
-import { ErrorMessage } from "@hookform/error-message";
+import NutritionTypeField from "./Fields/NutritionTypeField";
 
-interface NutritionProps extends TFormProps {
+interface NutritionProps {
   kcal: number;
 }
 
 const nutritionTypes = ["Carbs", "Protein", "Fat"];
 
-const NutritionForm = ({ register, kcal, errors }: NutritionProps) => {
+const NutritionForm = ({ kcal }: NutritionProps) => {
   return (
     <>
       <div className="flex w-full flex-col">
         <h4>Nutrition</h4>
         <ul className="mx-auto mt-4 flex w-[90%] flex-col">
           {nutritionTypes.map((type) => {
-            return (
-              <NutritionTypeField
-                key={type}
-                register={register}
-                type={type}
-                errors={errors}
-              />
-            );
+            return <NutritionTypeField key={type} type={type} />;
           })}
         </ul>
         <div className="ml-auto">
@@ -32,31 +24,5 @@ const NutritionForm = ({ register, kcal, errors }: NutritionProps) => {
     </>
   );
 };
-
-interface NutritionFieldProps extends TFormProps {
-  type: string;
-}
-
-const NutritionTypeField = ({
-  register,
-  type,
-  errors,
-}: NutritionFieldProps) => (
-  <li>
-    <label>
-      <span className="font-semibold">{type}</span>
-      <input
-        type="number"
-        {...register(`nutrition.${type.toLowerCase()}`, {
-          required: `${type} is required`,
-        })}
-        className="border-underline ml-2 w-[3rem] border-b-2 text-right"
-        min={0}
-      />
-      grams
-    </label>
-    <ErrorMessage name={`nutrition.${type.toLowerCase()}`} errors={errors} />
-  </li>
-);
 
 export default NutritionForm;

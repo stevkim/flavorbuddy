@@ -1,15 +1,15 @@
 import { ErrorMessage } from "@hookform/error-message";
-import type { TFormProps } from "../FormTypes/FormPropType";
+import { useFormContext } from "react-hook-form";
 
-interface InstructionFieldProps extends TFormProps {
+interface InstructionFieldProps {
   index: number;
 }
 
-const InstructionField = ({
-  index,
-  register,
-  errors,
-}: InstructionFieldProps) => {
+const InstructionField = ({ index }: InstructionFieldProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div className="w-full">
       <label className="flex">

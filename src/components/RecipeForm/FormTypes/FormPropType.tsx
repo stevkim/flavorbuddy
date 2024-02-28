@@ -1,8 +1,9 @@
-import { Control, UseFormRegister, FormStateProxy } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 export type TRecipeForm = {
   name: string;
   description: string;
+  image: string | null;
   prepTime: {
     [type: string]: number;
     total: number;
@@ -16,7 +17,5 @@ export type TRecipeForm = {
 };
 
 export type TFormProps = {
-  control?: Control<TRecipeForm>;
-  errors?: FormStateProxy["dirtyFields"];
-  register: UseFormRegister<TRecipeForm>;
+  control: Control<TRecipeForm>;
 };

@@ -1,11 +1,11 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { useFormContext } from "react-hook-form";
 
-interface PrepTimeFieldProps {
+interface NutritionFieldProps {
   type: string;
 }
 
-const PrepTimeField = ({ type }: PrepTimeFieldProps) => {
+const NutritionTypeField = ({ type }: NutritionFieldProps) => {
   const {
     register,
     formState: { errors },
@@ -13,21 +13,20 @@ const PrepTimeField = ({ type }: PrepTimeFieldProps) => {
   return (
     <li>
       <label>
-        <span className="font-semibold">{type}:</span>
+        <span className="font-semibold">{type}</span>
         <input
           type="number"
-          {...register(`prepTime.${type.toLowerCase()}`, {
-            required: `${type} time is required`,
+          {...register(`nutrition.${type.toLowerCase()}`, {
+            required: `${type} is required`,
           })}
           className="border-underline ml-2 w-[3rem] border-b-2 text-right"
-          step={5}
           min={0}
         />
-        minutes
+        grams
       </label>
-      <ErrorMessage name={`prepTime.${type.toLowerCase()}`} errors={errors} />
+      <ErrorMessage name={`nutrition.${type.toLowerCase()}`} errors={errors} />
     </li>
   );
 };
 
-export default PrepTimeField;
+export default NutritionTypeField;

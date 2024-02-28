@@ -1,12 +1,16 @@
-import type { TFormProps } from "./FormTypes/FormPropType";
 import { ErrorMessage } from "@hookform/error-message";
+import { useFormContext } from "react-hook-form";
 
-const BasicInfoForm = ({ register, errors }: TFormProps) => {
+const BasicInfoForm = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   return (
     <div className="flex flex-col gap-2">
       <h4>Recipe Information</h4>
-      <label className="flex w-full">
-        Name:
+      <label className="flex w-full text-nowrap">
+        {"Recipe Name:"}
         <input
           type="text"
           {...register("name", {
