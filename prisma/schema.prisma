@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Recipe {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  name         String    @unique
+  description  String
+  image        String
+  prepTime     PrepTime  @relation(fields: [prepTimeId], references: [id])
+  prepTimeId   String    @db.ObjectId
+  ingredients  String[]
+  instructions String[]
+  nutrition    Nutrition @relation(fields: [nutritionId], references: [id])
+  nutritionId  String    @db.ObjectId
+}
+
+model PrepTime {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  preparation Int
+  cooking     Int
+  total       Int
+  Recipe      Recipe[]
+}
+
+model Nutrition {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  carbs    Int
+  protein  Int
+  fat      Int
+  calories Int
+  Recipe   Recipe[]
+}

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import RecipePage from "./containers/RecipePage.tsx";
 import AddRecipePage from "./containers/AddRecipePage.tsx";
+import HomePage from "./containers/HomePage.tsx";
 import "./index.css";
 import {
   RouterProvider,
@@ -13,6 +14,12 @@ import {
 
 const rootRoute = createRootRoute({
   component: App,
+});
+
+const homeRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: HomePage,
 });
 
 const recipePageRoute = createRoute({
@@ -27,7 +34,11 @@ const addRecipeRoute = createRoute({
   component: AddRecipePage,
 });
 
-const routeTree = rootRoute.addChildren([recipePageRoute, addRecipeRoute]);
+const routeTree = rootRoute.addChildren([
+  homeRoute,
+  recipePageRoute,
+  addRecipeRoute,
+]);
 const router = createRouter({ routeTree });
 
 declare module "@tanstack/react-router" {

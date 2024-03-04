@@ -35,3 +35,9 @@
     @apply text-btn-secondary border-btn-secondary flex h-[30px] w-[30px] items-center justify-center border-[2px] hover:border-black hover:text-black;
   }
 }
+
+.test {
+  background: black;
+  aspect-ratio: 1 / 1;
+  width: 2em;
+}
