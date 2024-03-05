@@ -1,6 +1,7 @@
 import prisma from "../db";
+import type { Recipe } from "../middleware/recipePostValidation";
 
-export const addRecipe = async (data: any) => {
+export const addRecipe = async (data: Recipe) => {
   const newRecipe = await prisma.recipe.create({
     data: {
       name: data.name,
