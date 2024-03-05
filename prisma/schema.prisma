@@ -19,26 +19,26 @@ model Recipe {
   description  String
   image        String
   prepTime     PrepTime  @relation(fields: [prepTimeId], references: [id])
-  prepTimeId   String    @db.ObjectId
+  prepTimeId   String    @unique @db.ObjectId
   ingredients  String[]
   instructions String[]
   nutrition    Nutrition @relation(fields: [nutritionId], references: [id])
-  nutritionId  String    @db.ObjectId
+  nutritionId  String    @unique @db.ObjectId
 }
 
 model PrepTime {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   preparation Int
   cooking     Int
   total       Int
-  Recipe      Recipe[]
+  Recipe      Recipe?
 }
 
 model Nutrition {
-  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
   carbs    Int
   protein  Int
   fat      Int
   calories Int
-  Recipe   Recipe[]
+  Recipe   Recipe?
 }
