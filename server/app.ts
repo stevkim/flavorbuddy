@@ -1,5 +1,5 @@
 import express from "express";
-import RecipeRoutes from "./routes/RecipeRoutes.js";
+import RecipeRoutes from "./routes/RecipeRoutes";
 
 const app = express();
 app.use(express.json());

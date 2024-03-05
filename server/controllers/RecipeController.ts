@@ -1,6 +1,6 @@
-import prisma from "../db.js";
+import prisma from "../db";
 
-export const addRecipe = async (data) => {
+export const addRecipe = async (data: any) => {
   const newRecipe = await prisma.recipe.create({
     data: {
       name: data.name,

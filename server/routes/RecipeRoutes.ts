@@ -1,11 +1,12 @@
-import { Router } from "express";
-import { getAllRecipes, addRecipe } from "../controllers/RecipeController.js";
+import { Router, Request, Response } from "express";
+import { getAllRecipes, addRecipe } from "../controllers/RecipeController";
+import validateRecipe from "../middleware/recipePostValidation";
 
 const recipeRouter = Router();
 
 recipeRouter
   .route("/")
-  .get(async (req, res) => {
+  .get(async (req: Request, res: Response) => {
     try {
       const results = await getAllRecipes();
       if (results) {
@@ -18,7 +19,7 @@ recipeRouter
       res.sendStatus(500);
     }
   })
-  .post(async (req, res) => {
+  .post(validateRecipe, async (req: Request, res: Response) => {
     try {
       const result = await addRecipe(req.body);
       if (result) {
