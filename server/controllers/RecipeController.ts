@@ -7,25 +7,16 @@ export const addRecipe = async (data: Recipe) => {
       name: data.name,
       description: data.description,
       image: data.image,
-      prepTime: {
-        create: data.prepTime,
-      },
+      prepTime: data.prepTime,
       ingredients: data.ingredients,
       instructions: data.instructions,
-      nutrition: {
-        create: data.nutrition,
-      },
+      nutrition: data.nutrition,
     },
   });
   return newRecipe;
 };
 
 export const getAllRecipes = async () => {
-  const recipes = await prisma.recipe.findMany({
-    include: {
-      prepTime: true,
-      nutrition: true,
-    },
-  });
+  const recipes = await prisma.recipe.findMany({});
   return recipes;
 };
