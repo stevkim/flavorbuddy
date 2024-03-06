@@ -18,6 +18,7 @@ const NutritionTypeField = ({ type }: NutritionFieldProps) => {
           type="number"
           {...register(`nutrition.${type.toLowerCase()}`, {
             required: `${type} is required`,
+            setValueAs: Number,
           })}
           className="border-underline ml-2 w-[3rem] border-b-2 text-right"
           min={0}

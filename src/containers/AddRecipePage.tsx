@@ -8,30 +8,13 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import type { TRecipeForm } from "../components/RecipeForm/FormTypes/FormPropType";
 import { calculatekcal } from "../lib/calculatekcal";
 import { useEffect } from "react";
-
-const defaultValues = {
-  name: "",
-  description: "",
-  image: null,
-  prepTime: {
-    preparation: 5,
-    cooking: 5,
-    total: 10,
-  },
-  ingredients: [{ ingredient: "" }],
-  instructions: [{ instruction: "" }],
-  nutrition: {
-    carbs: 0,
-    protein: 0,
-    fat: 0,
-    calories: 0,
-  },
-};
+import { useMutation } from "@tanstack/react-query";
+import { addRecipe, uploadImage } from "../lib/fetchFunctions";
+import { formatRecipe } from "../lib/formatRecipe";
+import { formDefaultValues } from "../lib/defaultValues";
 
 const AddRecipePage = () => {
-  const methods = useForm<TRecipeForm>({
-    defaultValues,
-  });
+  const methods = useForm<TRecipeForm>({ defaultValues: formDefaultValues });
   const { handleSubmit, watch, setValue, reset, control } = methods;
 
   // watching updates to automatically update and pass for display
@@ -48,9 +31,17 @@ const AddRecipePage = () => {
     setValue("nutrition.calories", calculatekcal(carbs, protein, fat));
   }, [carbs, protein, fat, setValue]);
 
-  const onSubmit: SubmitHandler<TRecipeForm> = (data) => {
-    console.log(data);
-    reset();
+  const mutation = useMutation({
+    mutationFn: addRecipe,
+    onSuccess: (res) => {
+      console.log(res);
+      reset();
+    },
+  });
+
+  const onSubmit: SubmitHandler<TRecipeForm> = async (data) => {
+    const imagePath = await uploadImage(data.image as File);
+    mutation.mutate(formatRecipe(data, imagePath));
   };
 
   return (

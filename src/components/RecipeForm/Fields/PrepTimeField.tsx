@@ -18,6 +18,7 @@ const PrepTimeField = ({ type }: PrepTimeFieldProps) => {
           type="number"
           {...register(`prepTime.${type.toLowerCase()}`, {
             required: `${type} time is required`,
+            setValueAs: Number,
           })}
           className="border-underline ml-2 w-[3rem] border-b-2 text-right"
           step={5}

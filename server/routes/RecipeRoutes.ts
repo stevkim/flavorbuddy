@@ -23,6 +23,7 @@ recipeRouter
     try {
       const result = await addRecipe(req.body);
       if (result) {
+        console.log("success");
         res.sendStatus(201);
       } else {
         throw new Error();

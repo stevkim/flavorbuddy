@@ -1,22 +1,25 @@
 import { motion } from "framer-motion";
+import { Link } from "@tanstack/react-router";
+import { Navs } from "./Navs";
 
 interface NavListProps {
-  list: string[];
+  toggleMenu: () => void;
 }
 
-const NavList = ({ list }: NavListProps) => {
+const NavList = ({ toggleMenu }: NavListProps) => {
   return (
     <>
       <div className="absolute left-0 top-[50px]">
-        {list.map((listItem, index) => {
+        {Navs.map((nav, index) => {
           return (
             <motion.div
               initial={{ x: "-200%" }}
               animate={{ x: 0 }}
-              className="flex h-[2rem] w-[40rem] items-center bg-white indent-10"
+              className="flex h-[4rem] w-[40rem] items-center bg-white indent-10"
               transition={{ type: "linear", delay: index * 0.1 }}
+              onClick={toggleMenu}
             >
-              {listItem}
+              <Link to={nav.link}>{nav.name} </Link>
             </motion.div>
           );
         })}

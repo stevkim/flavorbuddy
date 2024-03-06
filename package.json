@@ -11,8 +11,13 @@
     "server-dev": "node server/app.js --watch"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@hookform/error-message": "^2.0.1",
+    "@tanstack/react-query": "^5.25.0",
     "@tanstack/react-router": "^1.17.4",
+    "cloudinary": "^2.0.3",
+    "dotenv": "^16.4.5",
     "framer-motion": "^11.0.8",
     "react": "^18.2.0",
     "react-animated-menuicon": "^1.2.0",

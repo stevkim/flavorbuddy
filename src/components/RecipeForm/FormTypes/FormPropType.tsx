@@ -1,19 +1,10 @@
 import { Control } from "react-hook-form";
+import { TRecipe } from "../../../types/RecipeTypes";
 
-export type TRecipeForm = {
-  name: string;
-  description: string;
-  image: string | null;
-  prepTime: {
-    [type: string]: number;
-    total: number;
-  };
+export type TRecipeForm = TRecipe & {
+  image: File | null;
   ingredients: { ingredient: string }[];
   instructions: { instruction: string }[];
-  nutrition: {
-    [type: string]: number;
-    calories: number;
-  };
 };
 
 export type TFormProps = {

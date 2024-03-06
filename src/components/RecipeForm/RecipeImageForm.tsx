@@ -1,7 +1,7 @@
 import { useDropzone } from "react-dropzone";
 import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { convertImageFileToBase64 } from "../../lib/convertImageFileToBase64";
+// import { convertImageFileToBase64 } from "../../lib/convertImageFileToBase64";
 import RecipeImagePreview from "./RecipeImagePreview";
 
 const RecipeImageForm = () => {
@@ -9,8 +9,7 @@ const RecipeImageForm = () => {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
-      const image = await convertImageFileToBase64(acceptedFiles[0]);
-      setValue("image", image);
+      setValue("image", acceptedFiles[0]);
     },
     [setValue],
   );
@@ -20,6 +19,9 @@ const RecipeImageForm = () => {
     accept: {
       "image/*": [".png", ".jpeg"],
     },
+    multiple: false,
+    noKeyboard: true,
+    maxFiles: 0,
   });
 
   const clearField = (e: React.MouseEvent<HTMLButtonElement>) => {

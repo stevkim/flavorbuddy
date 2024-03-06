@@ -26,6 +26,7 @@ const BasicInfoForm = () => {
           type="text"
           {...register("description", {
             required: "Please provide a description of the recipe",
+            minLength: 20,
           })}
           className="border-underline w-full border-b-2"
         />

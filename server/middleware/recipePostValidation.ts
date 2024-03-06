@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
 const Recipe = z.object({
   name: z.string(),
   description: z.string().min(20),
-  image: z.string(),
+  image: z.string().url(),
   prepTime: z.object({
     total: z.number().multipleOf(5).gt(0),
     preparation: z.number().multipleOf(5),
