@@ -12,10 +12,10 @@ export const addRecipe = async (data: TFormattedRecipe) => {
   return response.json();
 };
 
-export const getAllRecipes = async () => {
+export const getAllRecipes = async (): Promise<TFormattedRecipe[]> => {
   const response = await fetch(url);
 
-  return response.json();
+  return await response.json();
 };
 
 const cloudUrl = "https://api.cloudinary.com/v1_1/dse1m1yxj/image/upload";

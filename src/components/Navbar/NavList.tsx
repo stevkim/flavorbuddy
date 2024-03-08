@@ -13,6 +13,7 @@ const NavList = ({ toggleMenu }: NavListProps) => {
         {Navs.map((nav, index) => {
           return (
             <motion.div
+              key={nav.name}
               initial={{ x: "-200%" }}
               animate={{ x: 0 }}
               className="flex h-[4rem] w-[40rem] items-center bg-white indent-10"
