@@ -31,7 +31,7 @@ const RecipeImageForm = () => {
 
   return (
     <section className="w-full">
-      <h4>Image Upload</h4>
+      <h4 className="font-semibold">Image Upload</h4>
       <p className="ml-2">Upload an image of your recipe!</p>
       <div
         {...getRootProps()}

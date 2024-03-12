@@ -47,7 +47,6 @@ const AddRecipePage = () => {
   return (
     <FormProvider {...methods}>
       <form className="page" onSubmit={handleSubmit(onSubmit)}>
-        Add Recipe Page
         <BasicInfoForm />
         <RecipeImageForm />
         <PrepTimeForm total={total} />

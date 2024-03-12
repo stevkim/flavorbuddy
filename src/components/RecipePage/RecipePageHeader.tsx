@@ -1,13 +1,15 @@
-const RecipePageHeader = () => {
+
+interface RecipeHeaderProps {
+  description: string;
+  name: string;
+}
+
+const RecipePageHeader = ({ name, description }: RecipeHeaderProps) => {
   return (
-    <div>
-      <h1>Simple Omelette Recipe</h1>
-      <p>
-        An easy and quick dish, perfect for any meal. This classic omelette
-        combines beaten eggs cooked to perfection, optionally filled with your
-        choice of cheese, vegetables, or meats.
-      </p>
-    </div>
+    <>
+      <h1>{name}</h1>
+      <p>{description}</p>
+    </>
   );
 };
 

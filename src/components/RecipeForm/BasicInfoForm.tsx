@@ -8,7 +8,7 @@ const BasicInfoForm = () => {
   } = useFormContext();
   return (
     <div className="flex flex-col gap-2">
-      <h4>Recipe Information</h4>
+      <h4 className="font-semibold">Recipe Information</h4>
       <label className="flex w-full text-nowrap">
         {"Recipe Name:"}
         <input

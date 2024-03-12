@@ -8,8 +8,7 @@ export const addRecipe = async (data: TFormattedRecipe) => {
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
   });
-
-  return response.json();
+  return await response.json();
 };
 
 export const getAllRecipes = async (): Promise<TFormattedRecipe[]> => {
@@ -32,3 +31,8 @@ export const uploadImage = async (image: File) => {
   const result = await response.json();
   return result.secure_url;
 };
+
+export const getRecipeByName = async (data: string) => {
+  const response = await fetch(`${url}/${data}`);
+  return await response.json();
+}

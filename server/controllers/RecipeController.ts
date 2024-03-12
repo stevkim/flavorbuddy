@@ -20,3 +20,10 @@ export const getAllRecipes = async () => {
   const recipes = await prisma.recipe.findMany({});
   return recipes;
 };
+
+export const getRecipeByName = async (name:string) => {
+  const recipe = await prisma.recipe.findUnique({ where: {
+    name
+  } });
+  return recipe;
+}

@@ -4,10 +4,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useAppDispatch } from "./hooks/storeHooks";
 import { setRecipes } from "./features/recipeSlice";
 import { getAllRecipes } from "./lib/fetchFunctions";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const dispatch = useAppDispatch();
-  const { error } = useQuery({
+  useQuery({
     queryKey: ["recipes"],
     queryFn: () =>
       getAllRecipes().then((results) => {
@@ -20,6 +21,7 @@ function App() {
     <main className="bg-secondary min-h-[100vh] w-full">
       <Navbar />
       <Outlet />
+      <Toaster />
     </main>
   );
 }

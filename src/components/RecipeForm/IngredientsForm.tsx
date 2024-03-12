@@ -15,7 +15,7 @@ const IngredientsForm = ({ control }: TFormProps) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <h4>Ingredients</h4>
+        <h4 className="font-semibold">Ingredients</h4>
         <FieldArrayButtons add={addField} remove={removeField} />
       </div>
       <div className="flex w-full flex-col gap-2">
