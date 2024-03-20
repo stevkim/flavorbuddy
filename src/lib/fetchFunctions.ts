@@ -17,7 +17,7 @@ export const getAllRecipes = async (): Promise<TFormattedRecipe[]> => {
   return await response.json();
 };
 
-const cloudUrl = "https://api.cloudinary.com/v1_1/dse1m1yxj/image/upload";
+const cloudUrl = import.meta.env.CLOUDINARY_URL;
 
 export const uploadImage = async (image: File) => {
   const formData = new FormData();
